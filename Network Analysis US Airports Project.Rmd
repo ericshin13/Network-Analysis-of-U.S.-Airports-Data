@@ -1,0 +1,42 @@
+---
+title: "U.S. Airports"
+author: "Eric Shin UW Bothell"
+output:
+  html_document:
+    toc: yes
+    toc_depth: '3'
+    df_print: paged
+---
+
+# Setup Code
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+library(igraph)
+library(igraphdata)
+data(package = "igraphdata")
+data("USairports")
+USairports2 <- simplify(USairports, remove.loops=TRUE)
+```
+
+# Narrative Summary
+For this project, I decided to follow along with the topic of which US airports serve as the key brokers in the airline infrastructure. When we try to figure out and identify a key broker of information within a network, one of the best ways to measure the network is through the betweenness centrality algorithm. By using the betweenness centrality measure, we can identify which US airports most often fall along the shortest path between other airports. We will be able to detect the amount of influence an individual node (US airport) has over the flow of information in a network graph. 
+
+When I originally plotted the betweenness centrality graph using the US airports data set from igraph, all of the nodes were too small, the size of the arrows were too big, and there were also some unnecessary loops around the network plot. So, in terms of adjusting my code to make the graph more aesthetically pleasing, I used a simplify code to get rid of the unnecessary loops and I increased the vertex size of the nodes while decreasing the edge arrow size. By doing this, the nodes are much easier to see to a certain extent. The bigger nodes also stand out even more on the graph. The bigger nodes on the graph represent nodes that have a much higher betweenness centrality measure than the other nodes on the graph. 
+
+# US Airports Betweenness Centrality
+```{r USairports betweenness}
+#Betweenness
+between <- betweenness(USairports2, directed = TRUE, normalized = FALSE)
+bet_normalized <- betweenness(USairports2, directed = TRUE, normalized = TRUE)
+bet.dat <- data.frame(between, bet_normalized)
+plot(USairports2, edge.arrow.size=0, vertex.label=NA, vertex.color= "green",
+     vertex.size=bet_normalized*100, main = "Nodes weighted by betweenness centrality", sub = "Note: ANC Airport and SEA Airport had the two highest betweenness centrality measures") 
+```
+
+```{r betweenness data frame}
+#Betweenness Data Frame
+data.frame(bet.dat)
+```
+
+# Final Summary
+To conclude with the final project regarding which US airports serve as the key brokers in the airline infrastructure, we can see that the Ted Stevens Anchorage International Airport (ANC), with the normalized betweenness centrality of 0.358, as well as the Seattle-Tacoma International Airport (SEA), with the normalized betweenness centrality of 0.155, had the two highest betweenness centrality measures among every airport in the United States. In terms of the context and meaning behind this measure, we can see that these two airports have the biggest amount of influence over the flow of information among every airport in the United States. Specifically, these measures show us that these two airports are both very important and used very often as transfer locations for people getting from one part of the United States to another. Therefore, this provides an example of how both the Ted Stevens Anchorage International Airport and the Seattle-Tacoma International Airport serve as key brokers of information in the airline infrastructure. This gives us some perspective about which airports are the busiest and which airports attract the most people from all over the United States.
