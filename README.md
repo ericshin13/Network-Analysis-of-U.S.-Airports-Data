@@ -1,2 +1,6 @@
 # Network Analysis Project
-Project code is located in the RMD file.
+For this project, I decided to follow along with the topic of which US airports serve as the key brokers in the airline infrastructure. When we try to figure out and identify a key broker of information within a network, one of the best ways to measure the network is through the betweenness centrality algorithm. By using the betweenness centrality measure, we can identify which US airports most often fall along the shortest path between other airports. We will be able to detect the amount of influence an individual node (US airport) has over the flow of information in a network graph.
+
+When I originally plotted the betweenness centrality graph using the US airports data set from igraph, all of the nodes were too small, the size of the arrows were too big, and there were also some unnecessary loops around the network plot. So, in terms of adjusting my code to make the graph more aesthetically pleasing, I used a simplify code to get rid of the unnecessary loops and I increased the vertex size of the nodes while decreasing the edge arrow size. By doing this, the nodes are much easier to see to a certain extent. The bigger nodes also stand out even more on the graph. The bigger nodes on the graph represent nodes that have a much higher betweenness centrality measure than the other nodes on the graph.
+![Network Analysis US Airports Graph](https://github.com/user-attachments/assets/55d23f39-7d5c-458e-ab8b-ddc3b69ec073)
+## Project code is located in the RMD file.
